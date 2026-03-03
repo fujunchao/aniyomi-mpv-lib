@@ -42,7 +42,8 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       run: |
         set -e
-        mv app/build/outputs/aar/app-default-release.aar aniyomi-mpv-lib-${{ env.VERSION_TAG }}.aar
+        cp app/build/outputs/aar/app-default-release.aar mpv-release.aar
+        cp app/build/outputs/aar/app-default-release.aar aniyomi-mpv-lib-${{ env.VERSION_TAG }}.aar
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
@@ -50,8 +51,9 @@ jobs:
         tag_name: ${{ env.VERSION_TAG }}
         name: aniyomi-mpv-lib ${{ env.VERSION_TAG }}
         body: |
-          library version ${{ env.VERSION_TAG }}
+          完整版 AAR（包含 ffmpeg），适用于 TV-MPV 项目
         files: |
+          mpv-release.aar
           aniyomi-mpv-lib-${{ env.VERSION_TAG }}.aar
         draft: false
         prerelease: false
