@@ -67,19 +67,6 @@ LOCAL_EXPORT_C_INCLUDES := $(PREFIX)/include
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
-
 LOCAL_MODULE    := libplayer
-LOCAL_CFLAGS    := -Werror
-LOCAL_CPPFLAGS  += -std=c++11
-LOCAL_SRC_FILES := \
-	main.cpp \
-	render.cpp \
-	log.cpp \
-	jni_utils.cpp \
-	property.cpp \
-	event.cpp \
-	thumbnail.cpp
-LOCAL_LDLIBS    := -llog -lGLESv3 -lEGL -latomic
-LOCAL_SHARED_LIBRARIES := swscale avcodec mpv
-
-include $(BUILD_SHARED_LIBRARY)
+LOCAL_SRC_FILES := prebuilt/$(TARGET_ARCH_ABI)/libplayer.so
+include $(PREBUILT_SHARED_LIBRARY)
