@@ -11,8 +11,11 @@ SKIP=$(($START_RODATA + $START))
 dd if=buildscripts/deps/mpv/_build$1/libmpv.so.p/common_version.c.o of=date.txt bs=1 skip=$SKIP count=$SIZE
 DATE=$(cat date.txt)
 rm date.txt
-# write versions to Utils.kt
-sed -i "s/%MPV_VERSION%/$MPV_VERSION/g" app/src/main/java/is/xyz/mpv/Utils.kt
-sed -i "s/%LIBPLACEBO_VERSION%/$LIBPLACEBO_VERSION/g" app/src/main/java/is/xyz/mpv/Utils.kt
-sed -i "s/%FFMPEG_VERSION%/$FFMPEG_VERSION/g" app/src/main/java/is/xyz/mpv/Utils.kt
-sed -i "s/%DATE%/$DATE/g" app/src/main/java/is/xyz/mpv/Utils.kt
+# write versions to Utils.kt (skipped: Utils.kt removed in new-api branch)
+# Versions are already embedded in the prebuilt classes.jar
+if [ -f app/src/main/java/is/xyz/mpv/Utils.kt ]; then
+    sed -i "s/%MPV_VERSION%/$MPV_VERSION/g" app/src/main/java/is/xyz/mpv/Utils.kt
+    sed -i "s/%LIBPLACEBO_VERSION%/$LIBPLACEBO_VERSION/g" app/src/main/java/is/xyz/mpv/Utils.kt
+    sed -i "s/%FFMPEG_VERSION%/$FFMPEG_VERSION/g" app/src/main/java/is/xyz/mpv/Utils.kt
+    sed -i "s/%DATE%/$DATE/g" app/src/main/java/is/xyz/mpv/Utils.kt
+fi
